@@ -11,12 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/web")
 public class WebtController {
 
-    @Autowired
+    @Autowired("QueryServiceImpl")
     private QueryService queryService;
 
     @Autowired
@@ -28,24 +29,19 @@ public class WebtController {
     }
 
     @RequestMapping("/get")
-    public void get(@RequestParam("id") int id, HttpServletRequest request, HttpServletResponse response) {
-        String str = queryService.get(id);
-        out(response, str);
+    public Map get(@RequestParam("id") int id, HttpServletRequest request, HttpServletResponse response) {
+        Map map = queryService.get(id);
+        return map;
     }
 
     @RequestMapping("/update")
     public void update(@RequestParam("id") int id, @RequestParam("name") String name, HttpServletRequest request, HttpServletResponse response) {
         String str = modifyService.modify(id, name);
-        out(response, str);
     }
 
-    private void out(HttpServletResponse response, String str) {
-        try {
-            response.setContentType("application/json;charset=utf-8");
-            response.getWriter().print(str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @RequestMapping("/remove")
+    public void remove(int removeId, HttpServletRequest request, HttpServletResponse response) {
+        String str = "remove";
     }
 
 }

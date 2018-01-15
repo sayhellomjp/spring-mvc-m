@@ -4,7 +4,9 @@ import com.mjp.mvc.annotation.Service;
 import com.mjp.mvc.service.QueryService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("QueryServiceImpl")
 public class QueryServiceImpl implements QueryService {
@@ -17,8 +19,10 @@ public class QueryServiceImpl implements QueryService {
     }
 
     @Override
-    public String get(int id) {
-        String str = String.valueOf(id);
-        return str;
+    public Map get(int id) {
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("id", id);
+        m.put("name", "mjp");
+        return m;
     }
 }
